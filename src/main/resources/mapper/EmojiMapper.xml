@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springdemo.springboothello.Mapper.EmojiMapper">
+
+    <resultMap id="EmojiResultMap" type="emoji">
+        <id property="id" column="emoji_id"/>
+        <result property="name" column="emoji_name"/>
+        <result property="url" column="emoji_url"/>
+        <result property="category_id" column="emoji_category_id"/>
+        <result property="upload_user_id" column="upload_user_id"/>
+        <result property="upload_time" column="upload_time"/>
+    </resultMap>
+
+    <insert id="insertEmoji" parameterType="emoji" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO emojis(emoji_name, emoji_url, emoji_category_id, upload_user_id, upload_time)
+        values(#{name},#{url},#{category_id}, #{upload_user_id},#{upload_time})
+    </insert>
+
+    <delete id="deleteEmoji" parameterType="int">
+        DELETE FROM emojis WHERE emoji_id=#{id}
+    </delete>
+
+    <select id="getEmojiById" resultMap="EmojiResultMap">
+        SELECT *
+        FROM emojis
+        WHERE emoji_id = #{id}
+    </select>
+
+    <select id="getEmojisByKey" resultMap="EmojiResultMap">
+        SELECT *
+        FROM emojis
+        WHERE emoji_name LIKE '%${key}%';
+    </select>
+
+    <select id="getEmojisByCategoryId" resultMap="EmojiResultMap">
+        SELECT *
+        FROM emojis
+        WHERE  emoji_category_id = #{id}
+    </select>
+
+    <select id="getEmojisByUserId" resultMap="EmojiResultMap">
+        SELECT *
+        FROM emojis
+        WHERE upload_user_id = #{id}
+    </select>
+
+    <select id="getEmojisByTime" resultMap="EmojiResultMap">
+        SELECT *
+        FROM emojis
+        ORDER BY upload_time
+        LIMIT #{num}
+    </select>
+
+<!-- 对表情包类别的操作 -->
+
+    <insert id="insertCategory" parameterType="String">
+        INSERT INTO emoji_categories(category_name)
+            value (#{name})
+    </insert>
+
+    <select id="getCategoryNameById" resultType="String">
+        SELECT category_name
+        FROM emoji_categories
+        WHERE category_id = #{id}
+    </select>
+
+    <select id="getCategoryIdByName" resultType="int">
+        SELECT category_id
+        FROM emoji_categories
+        WHERE category_name = #{name}
+    </select>
+
+</mapper>

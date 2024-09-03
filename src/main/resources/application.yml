@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: SpringBootHello
+  datasource:
+    url: jdbc:mysql://localhost:3306/shixun
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8080
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.springdemo.springboothello.Bean
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+# 七牛云配置
+# bucket是创建的存储空间名
+# path对应存储空间的访问域名
+qiniu:
+  accessKey: _Li8XxWZ-sNEBybdFQvbCpmMKSP-Gr9yYORe7aB-
+  secretKey: ZKsbGuHheFti_wzug4mmKoebU2JhYhPCVnU8p6H2
+  bucket: javatest111
+  path: http://sgar9hhi3.hn-bkt.clouddn.com
+
+baseUploadUrl: D://Codes/java/IDEA/SpringBootHello/src/main/resources/tmp
+
+
+
+
+
